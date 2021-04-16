@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {filterAction} from '../redux/filter/filter-actions'
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 import selectors from '../redux/selectors'
 
 

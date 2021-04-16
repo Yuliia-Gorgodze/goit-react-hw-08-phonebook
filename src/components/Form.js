@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 import contactOperation from '../redux/contacts/contacts-operation';
 import selectors from '../redux/selectors'
 

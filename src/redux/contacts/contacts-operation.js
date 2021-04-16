@@ -11,7 +11,7 @@
 } from '../contacts/contacts-actions'
 
 import axios from 'axios'
-axios.defaults.baseURL = `http://localhost:3004`
+axios.defaults.baseURL = `http://goit-phonebook-api.herokuapp.com/`
 
 const getContacts = () => (dispatch) => {
   dispatch(getContactsRequest())
@@ -20,7 +20,6 @@ const getContacts = () => (dispatch) => {
     .then(({ data }) => dispatch(getContactsSuccess(data)))
     .catch((error) => dispatch(getContactsError(error)))
 }
-
 const addContacts = (contact) => (dispatch) => {
   dispatch(addContactRequest())
   axios

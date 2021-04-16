@@ -1,21 +1,34 @@
-import React, { Component } from 'react';
-//components
-import AddNameContact from './components/Form';
-import ContactList from './components/ContactList';
-import Filter from './components/Filter';
+import React, { Component, Suspense } from 'react';
+import propTypes from 'prop-types'
+import { Switch } from 'react-router-dom';
+import Navigation from './components/Navigation'
+import { connect } from 'react-redux';
+import authOperations from './redux/auth/auth-operations'
+import styles from './styles.module.css';
 
 class App extends Component {
+  componentDidMount () {
+    this.props.getUser()
+  }
   render() {
     return (
-      <div>
-        <h1>Телефонная книга</h1>
-        <AddNameContact />
-        <h2>Мои контакты: </h2>
-        <Filter />
-        <ContactList />
-      </div>
+      <Suspense fallback={<p>Загружаем.... </p>}>
+        <Switch>
+       <Navigation logOut={this.props.logOut}/>
+      </Switch>
+      </Suspense>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = {
+logOut: authOperations.logOut,
+getUser: authOperations.getCurrentUser,
+}
+export default connect(null, mapDispatchToProps)(App);
+
+
+App.propTypes = {
+  logOut: propTypes.func,
+  getUser: propTypes.func
+}

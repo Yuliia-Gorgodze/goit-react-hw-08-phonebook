@@ -1,8 +1,8 @@
 import reducer from './rootReducer';
 import { logger } from 'redux-logger';
 import {
-  // persistStore,
-  // persistReducer,
+  persistStore,
+  persistReducer,
   FLUSH,
   REGISTER,
   REHYDRATE,
@@ -10,14 +10,16 @@ import {
   PERSIST,
   PURGE,
 } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
+import authReducer from './auth/auth-reducer'
+import storage from 'redux-persist/lib/storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
-// const contactsPersistConfig = {
-//   key: 'contacts',
-//   storage,
-//   blacklist: ['filter'],
-// };
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
+
 const middleware = [
   ...getDefaultMiddleware({
     serializableCheck: {
@@ -28,9 +30,12 @@ const middleware = [
 ];
 
 const store = configureStore({
-  reducer,
+  reducer: {
+    auth: persistReducer(authPersistConfig, authReducer),
+    contactReducer: reducer,
+  },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
 });
-// const persistor = persistStore(store);
-export default store;
+const persistor = persistStore(store);
+export default { store, persistor };
