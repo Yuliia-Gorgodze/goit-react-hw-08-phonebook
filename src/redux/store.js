@@ -10,8 +10,10 @@ import {
   PERSIST,
   PURGE,
 } from 'redux-persist';
+import error from './errorReducer'
 import authReducer from './auth/auth-reducer'
 import storage from 'redux-persist/lib/storage';
+import loading from './loaderReducer';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 const authPersistConfig = {
@@ -27,12 +29,15 @@ const middleware = [
     },
   }),
   logger,
+
 ];
 
 const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     contactReducer: reducer,
+    error,
+    loading
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',

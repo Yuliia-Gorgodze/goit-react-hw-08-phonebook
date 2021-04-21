@@ -6,5 +6,4 @@ import contactReducer from './contacts/contactsReducer';
 export default combineReducers({
     contactReducer,
     filter,
- 
 });
